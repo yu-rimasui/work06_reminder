@@ -1,14 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  const [lgFlag, setLgFlag] = useState(true);
+  const lgTrue = () => {
+    setLgFlag(true);
+    document.getElementById("my_modal_1").showModal();
+  };
+  const lgFalse = () => {
+    setLgFlag(false);
+    document.getElementById("my_modal_2").showModal();
+  };
+
   return (
     <>
-      <div>
-        <button
-          className="btn"
-          onClick={() => document.getElementById("my_modal_1").showModal()}
-        >
+      <div className="m-40 gap-10 flex flex-col">
+        <button className="btn btn-secondary" onClick={() => lgTrue()}>
           ログイン
         </button>
         <dialog id="my_modal_1" className="modal">
@@ -18,14 +25,11 @@ const Login = () => {
                 ✕
               </button>
             </form>
-            <LoginContent />
+            <LoginContent lgFlag={lgFlag} />
           </div>
         </dialog>
 
-        <button
-          className="btn"
-          onClick={() => document.getElementById("my_modal_2").showModal()}
-        >
+        <button className="btn" onClick={() => lgFalse()}>
           登録
         </button>
         <dialog id="my_modal_2" className="modal">
@@ -35,7 +39,7 @@ const Login = () => {
                 ✕
               </button>
             </form>
-            <LoginContent />
+            <LoginContent lgFlag={lgFlag} />
           </div>
         </dialog>
       </div>
@@ -45,19 +49,19 @@ const Login = () => {
 
 export default Login;
 
-const LoginContent = () => {
+const LoginContent = (props) => {
   return (
     <>
-      <div role="tablist" className="tabs tabs-bordered">
+      <div role="tablist" className="tabs tabs-boxed tabs-lg">
         <input
           type="radio"
           name="my_tabs_1"
           role="tab"
           className="tab"
-          aria-label="管理者"
+          aria-label="M"
         />
-        <div role="tabpanel" className="tab-content p-10">
-          <div className="join">
+        <div role="tabpanel" className="tab-content p-5">
+          <div className="join gap-5 flex flex-col">
             <input
               className="input input-bordered join-item"
               placeholder="team"
@@ -71,10 +75,16 @@ const LoginContent = () => {
               placeholder="password"
             />
           </div>
-          <div>
-            <Link to="/ManagerPage">
-              <button>ログイン（M）</button>
-            </Link>
+          <div className="py-10">
+            {props.lgFlag ? (
+              <Link to="/ManagerPage">
+                <button className="btn btn-secondary">ログイン（M）</button>
+              </Link>
+            ) : (
+              <form method="dialog">
+                <button className="btn btn-neutral">登録</button>
+              </form>
+            )}
           </div>
         </div>
 
@@ -83,11 +93,11 @@ const LoginContent = () => {
           name="my_tabs_1"
           role="tab"
           className="tab"
-          aria-label="ユーザー"
-          checked
+          aria-label="U"
+          defaultChecked
         />
         <div role="tabpanel" className="tab-content p-10">
-          <div className="join">
+          <div className="join gap-5 flex flex-col">
             <input
               className="input input-bordered join-item"
               placeholder="team"
@@ -105,9 +115,17 @@ const LoginContent = () => {
               placeholder="new password"
             />
           </div>
-          <Link to="/UserPage">
-            <div>ログイン（U）</div>
-          </Link>
+          <div className="py-10">
+            {props.lgFlag ? (
+              <Link to="/UserPage">
+                <button className="btn btn-secondary">ログイン（U）</button>
+              </Link>
+            ) : (
+              <form method="dialog">
+                <button className="btn btn-neutral">登録</button>
+              </form>
+            )}
+          </div>
         </div>
       </div>
     </>
