@@ -54,5 +54,6 @@ module.exports = {
       directory: __dirname + "/dist",
     },
     port: 8080,
+    historyApiFallback: true,
   },
 };

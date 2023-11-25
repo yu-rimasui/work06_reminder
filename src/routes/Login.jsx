@@ -62,18 +62,41 @@ const LoginContent = (props) => {
         />
         <div role="tabpanel" className="tab-content p-5">
           <div className="join gap-5 flex flex-col">
-            <input
-              className="input input-bordered join-item"
-              placeholder="team"
-            />
-            <input
-              className="input input-bordered join-item"
-              placeholder="name"
-            />
-            <input
-              className="input input-bordered join-item"
-              placeholder="password"
-            />
+            {props.lgFlag ? (
+              <>
+                <input
+                  className="input input-bordered join-item"
+                  placeholder="team"
+                />
+                <input
+                  className="input input-bordered join-item"
+                  placeholder="name"
+                />
+                <input
+                  className="input input-bordered join-item"
+                  placeholder="password"
+                />
+              </>
+            ) : (
+              <>
+                <input
+                  className="input input-bordered join-item"
+                  placeholder="team"
+                />
+                <input
+                  className="input input-bordered join-item"
+                  placeholder="name"
+                />
+                <input
+                  className="input input-bordered join-item"
+                  placeholder="email"
+                />
+                <input
+                  className="input input-bordered join-item"
+                  placeholder="new password"
+                />
+              </>
+            )}
           </div>
           <div className="py-10">
             {props.lgFlag ? (
@@ -98,22 +121,41 @@ const LoginContent = (props) => {
         />
         <div role="tabpanel" className="tab-content p-10">
           <div className="join gap-5 flex flex-col">
-            <input
-              className="input input-bordered join-item"
-              placeholder="team"
-            />
-            <input
-              className="input input-bordered join-item"
-              placeholder="name"
-            />
-            <input
-              className="input input-bordered join-item"
-              placeholder="email"
-            />
-            <input
-              className="input input-bordered join-item"
-              placeholder="new password"
-            />
+            {props.lgFlag ? (
+              <>
+                <input
+                  className="input input-bordered join-item"
+                  placeholder="team"
+                />
+                <input
+                  className="input input-bordered join-item"
+                  placeholder="name"
+                />
+                <input
+                  className="input input-bordered join-item"
+                  placeholder="password"
+                />
+              </>
+            ) : (
+              <>
+                <input
+                  className="input input-bordered join-item"
+                  placeholder="team"
+                />
+                <input
+                  className="input input-bordered join-item"
+                  placeholder="name"
+                />
+                <input
+                  className="input input-bordered join-item"
+                  placeholder="email"
+                />
+                <input
+                  className="input input-bordered join-item"
+                  placeholder="new password"
+                />
+              </>
+            )}
           </div>
           <div className="py-10">
             {props.lgFlag ? (
