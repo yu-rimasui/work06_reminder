@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
     <>
-      <div className="mx-40 my-36 gap-8 flex flex-col">
+      <div>
         <button
           className="btn"
           onClick={() => document.getElementById("my_modal_1").showModal()}
@@ -12,52 +13,29 @@ const Login = () => {
         </button>
         <dialog id="my_modal_1" className="modal">
           <div className="modal-box">
-            <div>
-              <div className="join">
-                <input
-                  className="join-item btn"
-                  type="radio"
-                  name="options"
-                  aria-label="Radio 1"
-                />
-                <input
-                  className="join-item btn"
-                  type="radio"
-                  name="options"
-                  aria-label="Radio 2"
-                />
-                <input
-                  className="join-item btn"
-                  type="radio"
-                  name="options"
-                  aria-label="Radio 3"
-                />
-              </div>
-            </div>
-            <div className="modal-action">
-              <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
-                <button className="btn m-auto">とじる</button>
-              </form>
-            </div>
+            <form method="dialog">
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
+            </form>
+            <LoginContent />
           </div>
         </dialog>
 
         <button
           className="btn"
-          onClick={() => document.getElementById("my_modal_1").showModal()}
+          onClick={() => document.getElementById("my_modal_2").showModal()}
         >
           登録
         </button>
-        <dialog id="my_modal_1" className="modal">
+        <dialog id="my_modal_2" className="modal">
           <div className="modal-box">
-            <div>フォームをつくるここに</div>
-            <div className="modal-action">
-              <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
-                <button className="btn m-auto">とじる</button>
-              </form>
-            </div>
+            <form method="dialog">
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
+            </form>
+            <LoginContent />
           </div>
         </dialog>
       </div>
@@ -66,3 +44,72 @@ const Login = () => {
 };
 
 export default Login;
+
+const LoginContent = () => {
+  return (
+    <>
+      <div role="tablist" className="tabs tabs-bordered">
+        <input
+          type="radio"
+          name="my_tabs_1"
+          role="tab"
+          className="tab"
+          aria-label="管理者"
+        />
+        <div role="tabpanel" className="tab-content p-10">
+          <div className="join">
+            <input
+              className="input input-bordered join-item"
+              placeholder="team"
+            />
+            <input
+              className="input input-bordered join-item"
+              placeholder="name"
+            />
+            <input
+              className="input input-bordered join-item"
+              placeholder="password"
+            />
+          </div>
+          <div>
+            <Link to="/ManagerPage">
+              <button>ログイン（M）</button>
+            </Link>
+          </div>
+        </div>
+
+        <input
+          type="radio"
+          name="my_tabs_1"
+          role="tab"
+          className="tab"
+          aria-label="ユーザー"
+          checked
+        />
+        <div role="tabpanel" className="tab-content p-10">
+          <div className="join">
+            <input
+              className="input input-bordered join-item"
+              placeholder="team"
+            />
+            <input
+              className="input input-bordered join-item"
+              placeholder="name"
+            />
+            <input
+              className="input input-bordered join-item"
+              placeholder="email"
+            />
+            <input
+              className="input input-bordered join-item"
+              placeholder="new password"
+            />
+          </div>
+          <Link to="/UserPage">
+            <div>ログイン（U）</div>
+          </Link>
+        </div>
+      </div>
+    </>
+  );
+};
