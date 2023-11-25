@@ -77,7 +77,7 @@ const LoginContent = (props) => {
           </div>
           <div className="py-10">
             {props.lgFlag ? (
-              <Link to="/ManagerPage">
+              <Link to="/Manager">
                 <button className="btn btn-secondary">ログイン（M）</button>
               </Link>
             ) : (
@@ -117,7 +117,7 @@ const LoginContent = (props) => {
           </div>
           <div className="py-10">
             {props.lgFlag ? (
-              <Link to="/UserPage">
+              <Link to="/User">
                 <button className="btn btn-secondary">ログイン（U）</button>
               </Link>
             ) : (
