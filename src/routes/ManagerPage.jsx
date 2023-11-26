@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import Header from "../component/Header";
 import ManagerTodo from "../component/ManagerTodo";
 import ManagerModal from "../component/ManagerModal";
+// firebaseから
+import { updateTodo } from "../library/FirebaseAccess";
 
-const API_URL = "http://localhost:3000/task";
+// const API_URL = "http://localhost:3000/task";
 
 const ManagerPage = () => {
   // タスクデータ
@@ -39,14 +41,21 @@ const ManagerPage = () => {
 
   // タスク追加
   const addTask = (title, due_date) => {
-    const addDate = { title, due_date };
-    fetch(API_URL, {
-      body: JSON.stringify(addDate),
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(fetchEvent);
+    // const addDate = { title, due_date };
+    // fetch(API_URL, {
+    //   body: JSON.stringify(addDate),
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // }).then(fetchEvent);
+    newId = Math.max(...tasks.map((task) => task.id)) + 1;
+    setTargetTask({
+      id: newId,
+      title: title,
+      due_date: due_date,
+    });
+    updateTodo();
   };
 
   // タスク削除
