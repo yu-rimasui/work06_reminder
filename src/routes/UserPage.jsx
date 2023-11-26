@@ -1,7 +1,14 @@
 import React from "react";
+import Header from "../component/Header";
+import UserTodo from "../component/UserTodo";
 
-const UserPage = () => {
-  return <></>;
+const ManagerPage = () => {
+  return (
+    <>
+      <Header />
+      <UserTodo />
+    </>
+  );
 };
 
-export default UserPage;
+export default ManagerPage;
