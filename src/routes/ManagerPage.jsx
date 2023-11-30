@@ -4,15 +4,18 @@ import ManagerTodo from "../component/ManagerTodo";
 import ManagerModal from "../component/ManagerModal";
 // firebaseから
 import {
-  addTask,
-  editTask,
-  deleteTask,
-  getTasks,
+  addTaskFb,
+  editTaskFb,
+  deleteTaskFb,
+  getTasksFb,
 } from "../library/FirebaseAccess";
 
 const ManagerPage = () => {
+  // teamId(とりあえず定数)
+  const teamId = 1;
   // タスクデータ
   const [tasks, setTasks] = useState([]);
+  // 一次的に保持したい１つの taskデータ
   const [targetTask, setTargetTask] = useState({
     id: null,
     title: "",
@@ -22,7 +25,7 @@ const ManagerPage = () => {
   // フェッチ
   let isFirst = false;
   useEffect(() => {
-    fetchEvent();
+    fetchTask();
     isFirst = true;
   }, []);
 
@@ -32,54 +35,32 @@ const ManagerPage = () => {
     }
   }, [targetTask]);
 
-  const fetchEvent = () => {
-    fetch(API_URL)
-      .then((responseData) => {
-        return responseData.json();
-      })
-      .then((result) => {
-        setTasks(result);
-      });
+  const fetchTask = () => {
+    const getData = getTasksFb(teamId);
+    setTasks(getData);
   };
 
   // タスク追加
   const addTask = (title, due_date) => {
-    // const addDate = { title, due_date };
-    // fetch(API_URL, {
-    //   body: JSON.stringify(addDate),
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // }).then(fetchEvent);
-    newId = Math.max(...tasks.map((task) => task.id)) + 1;
-    setTargetTask({
-      id: newId,
+    const newTask = {
       title: title,
       due_date: due_date,
-    });
-    updateTodo();
-  };
-
-  // タスク削除
-  const deleteTask = (id) => {
-    const taskURL = API_URL + id;
-    fetch(taskURL, {
-      method: "DELETE",
-    }).then(fetchEvent);
+    };
+    addTaskFb(teamId, newTask);
   };
 
   // タスク編集
   const editTask = (id, title, due_date) => {
-    const taskURL = API_URL + id;
-    const editData = { id, title, due_date };
-    fetch(taskURL, {
-      body: JSON.stringify(editData),
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(fetchEvent);
+    const newTask = {
+      title: title,
+      due_date: due_date,
+    };
+    editTaskFb(id, newTask);
+  };
+
+  // タスク削除
+  const deleteTask = (id) => {
+    deleteTaskFb(id);
   };
 
   return (
