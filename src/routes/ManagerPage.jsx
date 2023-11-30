@@ -3,7 +3,12 @@ import Header from "../component/Header";
 import ManagerTodo from "../component/ManagerTodo";
 import ManagerModal from "../component/ManagerModal";
 // firebaseから
-import { updateTodo } from "../library/FirebaseAccess";
+import {
+  addTask,
+  editTask,
+  deleteTask,
+  getTasks,
+} from "../library/FirebaseAccess";
 
 const ManagerPage = () => {
   // タスクデータ
