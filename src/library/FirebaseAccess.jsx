@@ -1,15 +1,14 @@
 import db from "../../firebase";
 import {
   collection,
+  doc,
+  setDoc,
   getDoc,
   getDocs,
-  onSnapshot,
-  doc,
   updateDoc,
-  setDoc,
   deleteDoc,
+  onSnapshot,
 } from "firebase/firestore";
-import "firebase/firestore";
 
 /*
  * リマインダー

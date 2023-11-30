@@ -5,8 +5,6 @@ import ManagerModal from "../component/ManagerModal";
 // firebaseから
 import { updateTodo } from "../library/FirebaseAccess";
 
-// const API_URL = "http://localhost:3000/task";
-
 const ManagerPage = () => {
   // タスクデータ
   const [tasks, setTasks] = useState([]);
