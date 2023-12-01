@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  // ログインの状態を管理
+  const [isLogin, setIsLogin] = useState(false);
+  //
   const [lgFlag, setLgFlag] = useState(true);
   const lgTrue = () => {
     setLgFlag(true);
@@ -30,7 +33,7 @@ const Login = () => {
         </dialog>
 
         <button className="btn" onClick={() => lgFalse()}>
-          登録
+          新規登録
         </button>
         <dialog id="my_modal_2" className="modal">
           <div className="modal-box">
@@ -105,7 +108,7 @@ const LoginContent = (props) => {
               </Link>
             ) : (
               <form method="dialog">
-                <button className="btn btn-neutral">登録</button>
+                <button className="btn btn-neutral">新規登録</button>
               </form>
             )}
           </div>
@@ -164,7 +167,7 @@ const LoginContent = (props) => {
               </Link>
             ) : (
               <form method="dialog">
-                <button className="btn btn-neutral">登録</button>
+                <button className="btn btn-neutral">新規登録</button>
               </form>
             )}
           </div>
