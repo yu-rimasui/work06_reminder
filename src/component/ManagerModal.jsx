@@ -9,8 +9,8 @@ const ManagerModal = (props) => {
   const [form, setForm] = useState(initForm);
 
   useEffect(() => {
-    const { id, title, due_date } = props.targetTask;
-    if (id !== null) {
+    const { task_id, title, due_date } = props.targetTask;
+    if (task_id !== null) {
       setForm({
         title: title,
         due_date: due_date,
@@ -33,10 +33,11 @@ const ManagerModal = (props) => {
   const handleClose = () => {
     setForm(initForm);
     props.setTargetTask({
-      id: null,
+      task_id: null,
       title: "",
       due_date: "",
     });
+    document.getElementById("my_modal_3").close();
   };
 
   // handleSubmit:フォームの内容をtaskに保持
@@ -83,16 +84,18 @@ const ManagerModal = (props) => {
               name="title"
               placeholder="タスク"
               defaultValue={form.title}
+              value={form.title}
               onChange={handleInputChange}
             />
             <input
               type="date"
               name="due_date"
               defaultValue={form.due_date}
+              value={form.due_date}
               onChange={handleInputChange}
             />
           </div>
-          {props.targetTask.id === null ? (
+          {props.targetTask.task_id === null ? (
             <>
               <form method="dialog">
                 <button
@@ -128,7 +131,7 @@ const ManagerModal = (props) => {
           )}
         </div>
         <form method="dialog" className="modal-backdrop">
-          <button onClick={handleClose}>close</button>
+          <button>close</button>
         </form>
       </dialog>
     </>

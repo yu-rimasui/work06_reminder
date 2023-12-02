@@ -19,22 +19,20 @@ import {
  **/
 // タスク追加(ID自動生成)
 export const addTaskFb = async (newTask) => {
-  console.log(newTask);
-  db.collection("tasks").add(newTask);
-  // try {
-  //   const taskRef = doc(collection(db, "tasks"));
-  //   console.log(taskRef);
-  //   await addDoc(taskRef, newTask);
-  // } catch (err) {
-  //   console.log("addTaskのエラー");
-  // }
+  try {
+    const taskRef = collection(db, "tasks");
+    console.log(taskRef);
+    await addDoc(taskRef, newTask);
+  } catch (err) {
+    console.log("addTaskのエラー");
+  }
 };
 
 // タスク更新(編集)
 export const editTaskFb = async (taskId, newTask) => {
-  // const taskRef = doc(collection(db, "tasks"), String(taskId));
-  // updateDoc(taskRef, newTask);
-  // console.log(newTask);
+  const taskRef = doc(collection(db, "tasks"), String(taskId));
+  updateDoc(taskRef, newTask);
+  console.log(newTask);
 };
 
 // タスク削除
