@@ -17,50 +17,46 @@ const ManagerPage = () => {
   const [tasks, setTasks] = useState([]);
   // 一次的に保持したい１つの taskデータ
   const [targetTask, setTargetTask] = useState({
-    id: null,
+    task_id: null,
     title: "",
     due_date: "",
   });
+  // レンダリング
+  const [flg, setFlg] = useState(false);
 
-  // フェッチ
-  let isFirst = false;
   useEffect(() => {
     fetchTask();
-    isFirst = true;
-  }, []);
+  }, [flg]);
 
-  useEffect(() => {
-    if (!isFirst && targetTask.id !== null) {
-      () => document.getElementById("my_modal_3").showModal();
-    }
-  }, [targetTask]);
-
-  const fetchTask = () => {
-    const getData = getTasksFb(teamId);
-    setTasks(getData);
+  const fetchTask = async () => {
+    await getTasksFb(teamId, setTasks);
   };
 
   // タスク追加
   const addTask = (title, due_date) => {
     const newTask = {
+      team_id: teamId,
       title: title,
       due_date: due_date,
     };
-    addTaskFb(teamId, newTask);
+    addTaskFb(newTask);
+    setFlg(!flg);
   };
 
   // タスク編集
-  const editTask = (id, title, due_date) => {
+  const editTask = (task_id, title, due_date) => {
     const newTask = {
       title: title,
       due_date: due_date,
     };
-    editTaskFb(id, newTask);
+    editTaskFb(task_id, newTask);
+    setFlg(!flg);
   };
 
   // タスク削除
-  const deleteTask = (id) => {
-    deleteTaskFb(id);
+  const deleteTask = (task_id) => {
+    deleteTaskFb(task_id);
+    setFlg(!flg);
   };
 
   return (
