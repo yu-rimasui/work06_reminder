@@ -1,61 +1,71 @@
 import { useSearchParams } from "react-router-dom";
 import db from "../../firebase";
-import { useState } from "react";
+import "firebase/firestore";
+import {
+  doc,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  getFirestore,
+  collection,
+  query,
+  where,
+  orderBy,
+  getDocs,
+} from "firebase/firestore";
 
 /*
  * タスク
  **/
 // タスク追加(ID自動生成)
-export const addTaskFb = async (teamId, newTask) => {
-  try {
-    const taskRef = await db.collection("tasks").add({
-      team_id: teamId,
-      title: newTask.title,
-      due_date: newTask.due_date,
-    });
-
-    const taskDoc = await taskRef.get();
-    console.log(taskDoc.data());
-  } catch (err) {
-    console.log(`Error: ${JSON.stringify(err)}`);
-  }
+export const addTaskFb = async (newTask) => {
+  console.log(newTask);
+  db.collection("tasks").add(newTask);
+  // try {
+  //   const taskRef = doc(collection(db, "tasks"));
+  //   console.log(taskRef);
+  //   await addDoc(taskRef, newTask);
+  // } catch (err) {
+  //   console.log("addTaskのエラー");
+  // }
 };
 
 // タスク更新(編集)
 export const editTaskFb = async (taskId, newTask) => {
-  const taskRef = db.collection("tasks").doc(taskId);
-  await taskRef.update({
-    title: newTask.title,
-    due_date: newTask.due_date,
-  });
+  // const taskRef = doc(collection(db, "tasks"), String(taskId));
+  // updateDoc(taskRef, newTask);
+  // console.log(newTask);
 };
 
 // タスク削除
 export const deleteTaskFb = async (taskId) => {
-  const taskRef = db.collection("tasks").doc(taskId);
-  await taskRef.delete();
+  const taskRef = doc(collection(db, "tasks"), String(taskId));
+  deleteDoc(taskRef);
 };
 
 // 複数タスク取得
-export const getTasksFb = async (teamId) => {
-  let box = [];
+export const getTasksFb = async (teamId, setTasks) => {
   try {
-    const querySnapShot = await db
-      .collection("tasks")
-      .where("team_id", "==", teamId)
-      .orderBy("due_date", "asc")
-      .get();
-    querySnapShot.forEach((taskDoc) => {
-      console.log(`${taskDoc.id} => ${JSON.stringify(taskDoc.data())}`);
-      box.push(...items, {
-        id: taskDoc.id,
-        team_id: teamId,
-        title: taskDoc.date().title,
-        due_date: taskDoc.date().due_date,
-      });
+    const q = query(
+      collection(db, "tasks"),
+      where("team_id", "==", teamId),
+      orderBy("due_date", "asc")
+    );
+    getDocs(q).then((x) => {
+      setTasks(
+        x.docs.map((doc) => {
+          let box = {
+            task_id: doc.id,
+            team_id: doc.data().team_id,
+            title: doc.data().title,
+            due_date: doc.data().due_date,
+          };
+          return box;
+        })
+      );
     });
-    return box;
   } catch (err) {
+    console.log(err);
     console.log(`Error: ${JSON.stringify(err)}`);
   }
 };

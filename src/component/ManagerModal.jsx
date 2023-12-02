@@ -48,10 +48,10 @@ const ManagerModal = (props) => {
     } else if (due_date === "") {
       return alert("期限を入力してください");
     }
-    if (props.targetTask.id === null) {
+    if (props.targetTask.task_id === null) {
       props.addTask(title, due_date);
     } else {
-      props.editTask(props.targetTask.id, title, due_date);
+      props.editTask(props.targetTask.task_id, title, due_date);
     }
     // modal閉じる
     handleClose();
@@ -59,7 +59,7 @@ const ManagerModal = (props) => {
 
   // handleDelete:フォームの内容を削除
   const handleDelete = () => {
-    props.deleteTask(props.targetTask.id);
+    props.deleteTask(props.targetTask.task_id);
     // modal閉じる
     handleClose();
   };
